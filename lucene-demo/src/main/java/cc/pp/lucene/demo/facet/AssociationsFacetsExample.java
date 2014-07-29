@@ -5,17 +5,8 @@ import java.util.List;
 
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.document.Document;
-import org.apache.lucene.facet.associations.AssociationsFacetFields;
-import org.apache.lucene.facet.associations.CategoryAssociation;
-import org.apache.lucene.facet.associations.CategoryAssociationsContainer;
-import org.apache.lucene.facet.associations.CategoryFloatAssociation;
-import org.apache.lucene.facet.associations.CategoryIntAssociation;
-import org.apache.lucene.facet.associations.SumFloatAssociationFacetRequest;
-import org.apache.lucene.facet.associations.SumIntAssociationFacetRequest;
-import org.apache.lucene.facet.index.FacetFields;
-import org.apache.lucene.facet.params.FacetSearchParams;
-import org.apache.lucene.facet.search.FacetResult;
-import org.apache.lucene.facet.search.FacetsCollector;
+import org.apache.lucene.facet.FacetResult;
+import org.apache.lucene.facet.FacetsCollector;
 import org.apache.lucene.facet.taxonomy.CategoryPath;
 import org.apache.lucene.facet.taxonomy.TaxonomyReader;
 import org.apache.lucene.facet.taxonomy.directory.DirectoryTaxonomyReader;
@@ -39,42 +30,41 @@ public class AssociationsFacetsExample {
 	 * 每个文档中的分类，都有与其相关的值。
 	 */
 	public static CategoryPath[][] CATEGORIES = {
-		// 文档1
-		{ //
+			// 文档1
+			{ //
 			new CategoryPath("tags", "lucene"), //
-			new CategoryPath("genre", "computing") //
-		},
-		// 文档2
-		{ //
+					new CategoryPath("genre", "computing") //
+			},
+			// 文档2
+			{ //
 			new CategoryPath("tags", "lucene"), //
-			new CategoryPath("tags", "solr"), //
-			new CategoryPath("genre", "computing"), //
-			new CategoryPath("genre", "software") //
-		} //
+					new CategoryPath("tags", "solr"), //
+					new CategoryPath("genre", "computing"), //
+					new CategoryPath("genre", "software") //
+			} //
 	};
 
 	/**
 	 * 每个类别的相关值
 	 */
 	public static CategoryAssociation[][] ASSOCIATIONS = {
-		// 文档1相关
-		{
-			// 标签‘lucene’出现3次
-			new CategoryIntAssociation(3),
-			// 类型’computing‘的87%置信区间
-			new CategoryFloatAssociation(0.87f) //
-		}, //
-		// 文档2相关
-		{
-			// 标签’lucene‘出现1次
-			new CategoryIntAssociation(1),
-			// 标签’solr‘出现2次
-			new CategoryIntAssociation(2),
-			// 类型'computing'的75%置信区间
-			new CategoryFloatAssociation(0.75f),
-			// 类型’software‘的34%置信区间
-			new CategoryFloatAssociation(0.34f)
-		} //
+			// 文档1相关
+			{
+					// 标签‘lucene’出现3次
+					new CategoryIntAssociation(3),
+					// 类型’computing‘的87%置信区间
+					new CategoryFloatAssociation(0.87f) //
+			}, //
+				// 文档2相关
+			{
+					// 标签’lucene‘出现1次
+					new CategoryIntAssociation(1),
+					// 标签’solr‘出现2次
+					new CategoryIntAssociation(2),
+					// 类型'computing'的75%置信区间
+					new CategoryFloatAssociation(0.75f),
+					// 类型’software‘的34%置信区间
+					new CategoryFloatAssociation(0.34f) } //
 	};
 
 	private final Directory indexDir = new RAMDirectory();

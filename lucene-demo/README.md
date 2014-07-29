@@ -9,6 +9,14 @@
 
 # 搜索基础 #
 
+LuceneConstant.LUCENE_VERSION
+Analyzer analyzer = new StandardAnalyzer(LuceneConstant.LUCENE_VERSION);
+IndexWriterConfig conf = new IndexWriterConfig(LuceneConstant.LUCENE_VERSION, analyzer);
+IndexWriter writer = new IndexWriter(dir, conf);
+
+IndexReader reader = DirectoryReader.open(dir);
+IndexSearcher searcher = new IndexSearcher(reader);
+
 [Lucene] 提供了多种`Query`实现类，大部分都是在<org.apache.lucene.search>包或者它的子包（`spans`、`payloads`），或者其他查询模块中。可以通过组合这些查询实现更为复杂的查询能力。下面将会介绍一些比较重要的查询类，当然可以通过`Custom Queries`的介绍实现自定义的查询功能。
 搜索的时候，通过使用<IndexSearcher.search(Query,int)>或者<IndexSearcher.search(Query,Filter,int)>来实现。
 一旦创建和提交查询给<IndexSearcher>后，评分过程将进行。
